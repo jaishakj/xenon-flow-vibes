@@ -13,9 +13,11 @@ export function Navbar() {
       <nav className="container flex items-center justify-between py-4 mx-auto">
         <div className="flex items-center gap-10">
           <Link to="/" className="flex items-center">
-            <h1 className="text-2xl font-bold text-glow text-white">
-              XENO<span className="text-neon-purple">MAS</span>
-            </h1>
+            <img 
+              src="/lovable-uploads/90b58f92-97c1-424c-99a5-280b8429f589.png" 
+              alt="XENOMAS" 
+              className="h-8 w-auto transition-all duration-300 hover:opacity-80"
+            />
           </Link>
           
           <div className="hidden space-x-6 md:flex">
