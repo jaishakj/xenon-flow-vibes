@@ -5,13 +5,13 @@
 
 @layer base {
   :root {
-    --background: 225 23% 13%;
+    --background: 0 0% 0%;
     --foreground: 0 0% 98%;
 
-    --card: 225 23% 13%;
+    --card: 0 0% 0%;
     --card-foreground: 0 0% 98%;
 
-    --popover: 225 23% 13%;
+    --popover: 0 0% 0%;
     --popover-foreground: 0 0% 98%;
 
     --primary: 260 96% 66%;
@@ -43,7 +43,7 @@
   }
   
   body {
-    @apply bg-xenon-900 text-foreground antialiased;
+    @apply bg-black text-foreground antialiased;
     font-feature-settings: "ss01", "ss02", "cv01", "cv02", "cv03";
   }
 
