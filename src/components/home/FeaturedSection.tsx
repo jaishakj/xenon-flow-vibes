@@ -2,27 +2,24 @@
 import { VideoCard } from "@/components/ui/video-card";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft, ChevronRight } from "lucide-react";
-import { Video } from "@/data/videos";
 import { useState } from "react";
+import { mockVideos } from "@/data/videos";
 
-interface FeaturedSectionProps {
-  videos: Video[];
-}
-
-export function FeaturedSection({ videos }: FeaturedSectionProps) {
+export function FeaturedSection() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const featuredVideo = videos[currentIndex];
+  const featuredVideos = mockVideos.slice(0, 3);
+  const featuredVideo = featuredVideos[currentIndex];
   
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % videos.length);
+    setCurrentIndex((prev) => (prev + 1) % featuredVideos.length);
   };
   
   const handlePrev = () => {
-    setCurrentIndex((prev) => (prev - 1 + videos.length) % videos.length);
+    setCurrentIndex((prev) => (prev - 1 + featuredVideos.length) % featuredVideos.length);
   };
   
   return (
-    <section className="relative w-full mt-16 mb-8">
+    <section className="relative w-full mt-6 mb-12">
       <div className="absolute top-0 right-0 flex space-x-2 z-20">
         <Button 
           variant="outline" 
@@ -47,7 +44,7 @@ export function FeaturedSection({ videos }: FeaturedSectionProps) {
       </div>
 
       <div className="mt-4 flex justify-center">
-        {videos.map((_, index) => (
+        {featuredVideos.map((_, index) => (
           <button
             key={index}
             className={`w-2 h-2 mx-1 rounded-full transition-colors ${

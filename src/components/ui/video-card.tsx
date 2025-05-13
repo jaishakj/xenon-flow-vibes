@@ -12,6 +12,7 @@ interface VideoCardProps {
 
 export function VideoCard({ video, featured = false }: VideoCardProps) {
   const [isHovered, setIsHovered] = useState(false);
+  const [imageError, setImageError] = useState(false);
   
   const formatViews = (count: number) => {
     if (count >= 1000000) {
@@ -23,6 +24,13 @@ export function VideoCard({ video, featured = false }: VideoCardProps) {
     return `${count} views`;
   };
 
+  const handleImageError = () => {
+    setImageError(true);
+  };
+
+  const fallbackImage = "https://images.unsplash.com/photo-1580501170888-80668882ca0c";
+  const thumbnailUrl = imageError ? fallbackImage : video.thumbnailUrl;
+  
   const timeAgo = formatDistanceToNow(new Date(video.createdAt), { addSuffix: true });
 
   return (
@@ -35,9 +43,10 @@ export function VideoCard({ video, featured = false }: VideoCardProps) {
       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent z-10"></div>
       
       <img 
-        src={video.thumbnailUrl}
+        src={thumbnailUrl}
         alt={video.title}
         className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        onError={handleImageError}
       />
       
       {isHovered && (
@@ -68,6 +77,7 @@ export function VideoCard({ video, featured = false }: VideoCardProps) {
             src={video.creator.avatarUrl} 
             alt={video.creator.name}
             className="w-6 h-6 rounded-full mr-2 border border-white/20" 
+            onError={handleImageError}
           />
           <span className="text-xs text-xenon-200">{video.creator.name}</span>
         </div>
