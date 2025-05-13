@@ -19,8 +19,10 @@ export function FeaturedSection() {
   };
   
   return (
-    <section className="relative w-full mt-6 mb-12">
-      <div className="absolute top-0 right-0 flex space-x-2 z-20">
+    <section className="relative w-full mb-8">
+      <h2 className="text-xl font-bold text-white mb-4">Featured</h2>
+      
+      <div className="absolute top-4 right-0 flex space-x-2 z-20">
         <Button 
           variant="outline" 
           size="icon" 
@@ -43,7 +45,7 @@ export function FeaturedSection() {
         <VideoCard video={featuredVideo} featured={true} />
       </div>
 
-      <div className="mt-4 flex justify-center">
+      <div className="mt-2 flex justify-center">
         {featuredVideos.map((_, index) => (
           <button
             key={index}

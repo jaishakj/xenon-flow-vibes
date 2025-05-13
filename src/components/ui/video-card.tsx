@@ -4,6 +4,7 @@ import { Play } from "lucide-react";
 import { useState } from "react";
 import { formatDistanceToNow } from "date-fns";
 import { Video } from "@/data/videos";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface VideoCardProps {
   video: Video;
@@ -13,6 +14,7 @@ interface VideoCardProps {
 export function VideoCard({ video, featured = false }: VideoCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [imageError, setImageError] = useState(false);
+  const isMobile = useIsMobile();
   
   const formatViews = (count: number) => {
     if (count >= 1000000) {
@@ -33,10 +35,13 @@ export function VideoCard({ video, featured = false }: VideoCardProps) {
   
   const timeAgo = formatDistanceToNow(new Date(video.createdAt), { addSuffix: true });
 
+  const cardWidth = isMobile ? "w-44" : featured ? "w-full" : "w-64";
+  const cardHeight = featured ? "aspect-video" : "aspect-[9/16]";
+
   return (
     <Link 
       to={`/watch/${video.id}`}
-      className={`group relative rounded-xl overflow-hidden ${featured ? 'w-full aspect-[16/9]' : 'w-80 aspect-[16/9]'} transition-all duration-300`}
+      className={`group relative rounded-lg overflow-hidden ${cardWidth} ${cardHeight} transition-all duration-300`}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -45,26 +50,26 @@ export function VideoCard({ video, featured = false }: VideoCardProps) {
       <img 
         src={thumbnailUrl}
         alt={video.title}
-        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
         onError={handleImageError}
       />
       
       {isHovered && (
         <div className="absolute inset-0 flex items-center justify-center z-20">
           <div className="rounded-full bg-neon-purple/80 p-3 animate-pulse-glow">
-            <Play className="text-white" size={featured ? 36 : 24} fill="white" />
+            <Play className="text-white" size={featured ? 28 : 20} fill="white" />
           </div>
         </div>
       )}
 
-      <div className="absolute bottom-0 left-0 right-0 p-4 z-30">
-        <h3 className={`font-bold text-white mb-1 line-clamp-1 ${featured ? 'text-xl' : 'text-base'}`}>
+      <div className="absolute bottom-0 left-0 right-0 p-3 z-30">
+        <h3 className={`font-bold text-white mb-1 line-clamp-1 ${featured ? 'text-lg' : 'text-sm'}`}>
           {video.title}
         </h3>
         
         <div className="flex items-center text-xs text-xenon-200">
-          <span className="mr-2">{formatViews(video.views)}</span>
-          <span className="mr-2">•</span>
+          <span>{formatViews(video.views)}</span>
+          <span className="mx-1">•</span>
           <span>{timeAgo}</span>
         </div>
         
@@ -76,7 +81,7 @@ export function VideoCard({ video, featured = false }: VideoCardProps) {
           <img 
             src={video.creator.avatarUrl} 
             alt={video.creator.name}
-            className="w-6 h-6 rounded-full mr-2 border border-white/20" 
+            className="w-5 h-5 rounded-full mr-2 border border-white/20" 
             onError={handleImageError}
           />
           <span className="text-xs text-xenon-200">{video.creator.name}</span>
